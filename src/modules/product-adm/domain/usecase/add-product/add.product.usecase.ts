@@ -2,8 +2,12 @@ import Id from "../../../../@shared/domain/value-object/id.value-object";
 import Product, { ProductProps } from "../../entity/product.entity";
 import ProductGateway from "../../../gateway/product.gateway";
 import { AddProductInputDto, AddProductOutputDto } from "./add.product.dto";
+import { UseCaseInterface } from "../../../../@shared/use-case/use-case.interface";
 
-export default class AddProductUsecase {
+export default class AddProductUsecase implements UseCaseInterface<
+  AddProductInputDto,
+  AddProductOutputDto
+> {
   private _productRepository: ProductGateway;
 
   constructor(productRepository: ProductGateway) {
@@ -21,14 +25,18 @@ export default class AddProductUsecase {
     const product = new Product(props);
     this._productRepository.add(product);
 
+    return this.toDTO(product);
+  }
+
+  toDTO(entity: Product): AddProductOutputDto {
     return {
-      id: product.id.id,
-      name: product.name,
-      description: product.description,
-      purchasePrice: product.purchasePrice,
-      stock: product.stock,
-      createdAt: product.createdAt,
-      updatedAt: product.updatedAt,
+      id: entity.id.id,
+      name: entity.name,
+      description: entity.description,
+      purchasePrice: entity.purchasePrice,
+      stock: entity.stock,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 }

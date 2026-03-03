@@ -15,7 +15,19 @@ export class ProductRepository implements ProductGateway {
         updatedAt: product.updatedAt,
     })
   }
-  find(id: Id): Promise<Product> {
-    throw new Error("Method not implemented.");
+  async find(id: Id): Promise<Product> {
+    const product = await ProductModel.findOne({ where: { id: id.id } });
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return new Product({
+      id: new Id(product.id),
+      name: product.name,
+      description: product.description,
+      purchasePrice: product.purchasePrice,
+      stock: product.stock,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+    });
   }
 }
