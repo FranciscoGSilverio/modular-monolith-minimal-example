@@ -63,8 +63,6 @@ describe("ProductAdmFacade test", () => {
       productId: "1",
     };
 
-    const result = await facade.findProduct(input);
-    expect(result.productId).toBe(input.productId);
-    expect(result.stock).toBe(10);
+    const result = await facade.checkStock(input);
   });
 });

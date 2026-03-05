@@ -29,5 +29,5 @@ export default interface ProductAdmFacadeInterface {
   addProduct(
     product: AddProductFacadeInputDto,
   ): Promise<AddProductFacadeOutputDto>;
-  findProduct(id: CheckStockFacadeInputDto): Promise<CheckStockFacadeOutputDto>;
+  checkStock(id: CheckStockFacadeInputDto): Promise<CheckStockFacadeOutputDto>;
 }
